@@ -20,6 +20,13 @@ describe('group series', function() {
       .to.be.a('function');
   });
 
+  it('requires a form argument', function() {
+    expect(function() {
+      group({});
+    })
+      .to.throw('Invalid form');
+  });
+
   it('identifies series and paragraphs', function() {
     expect(group({content: [A, B, X, 'text', Y, C, D]}))
       .to.eql([

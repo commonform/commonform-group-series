@@ -52,4 +52,4 @@ module.exports = function(form) {
   }, []);
 };
 
-module.exports.version = '0.0.0-prerelease';
+module.exports.version = '0.1.0';

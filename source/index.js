@@ -1,55 +1,52 @@
-var validate = require('commonform-validate');
+var Immutable = require('immutable');
 
-var PARAGRAPH = 'paragraph';
-var SERIES = 'series';
+var hasFormProperty = function(argument) {
+  return (
+    Immutable.Map.isMap(argument) &&
+    argument.has('form')
+  );
+};
 
-var isAnySubForm = function(object) {
-  return validate.nestedSubForm(object) || validate.subForm(object);
+var pushToLastContent = function(list, element) {
+  return list.update(list.count() - 1, function(lastGroup) {
+    return lastGroup.update('content', function(content) {
+      return content.push(element);
+    });
+  });
 };
 
 module.exports = function(form) {
-  if (!validate.form(form) && !validate.nestedForm(form)) {
-    throw new Error('Invalid form or nested form');
-  }
+  return form.get('content')
+    .reduce(function(listOfGroups, element, index, content) {
+      // `element` is a sub-form.
+      if (hasFormProperty(element)) {
+        // `element` is part of the previous series.
+        if (index > 0 && hasFormProperty(content.get(index - 1))) {
+          return pushToLastContent(listOfGroups, element);
 
-  return form.content.reduce(function(result, element, index, content) {
-    var lastGroup;
+        // `element` starts a new series.
+        } else {
+          return listOfGroups.push(Immutable.Map({
+            type: 'series',
+            content: Immutable.List([element])
+          }));
+        }
 
-    // A sub-form
-    if (validate.nestedSubForm(element)) {
-
-      // Part of previous series
-      if (index > 0 && isAnySubForm(content[index - 1])) {
-        lastGroup = result[result.length - 1];
-        lastGroup.content.push(element);
-        return result;
-
-      // New series
+      // `element` is not a sub-form.
       } else {
-        return result.concat({
-          type: SERIES,
-          content: [element]
-        });
+        // `element` is part of the previous paragraph.
+        if (index > 0 && !hasFormProperty(content.get(index - 1))) {
+          return pushToLastContent(listOfGroups, element);
+
+        // `element` starts a new paragraph.
+        } else {
+          return listOfGroups.push(Immutable.Map({
+            type: 'paragraph',
+            content: Immutable.List([element])
+          }));
+        }
       }
-
-    // Some other type of content
-    } else {
-
-      // Part of previous paragraph
-      if (index > 0 && !isAnySubForm(content[index - 1])) {
-        lastGroup = result[result.length - 1];
-        lastGroup.content.push(element);
-        return result;
-
-      // New paragraph
-      } else {
-        return result.concat({
-          type: PARAGRAPH,
-          content: [element]
-        });
-      }
-    }
-  }, []);
+    }, Immutable.List());
 };
 
 module.exports.version = '0.1.0';

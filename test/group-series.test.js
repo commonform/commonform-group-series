@@ -1,4 +1,5 @@
 /* jshint mocha: true */
+var Immutable = require('immutable');
 var expect = require('chai').expect;
 var group = require('..');
 
@@ -20,15 +21,10 @@ describe('group series', function() {
       .to.be.a('function');
   });
 
-  it('requires a form argument', function() {
-    expect(function() {
-      group({});
-    })
-      .to.throw('Invalid form');
-  });
-
-  it('identifies series and paragraphs', function() {
-    expect(group({content: [A, B, X, 'text', Y, C, D]}))
+  it('works on Immutables', function() {
+    expect(group(Immutable.fromJS({
+      content: [A, B, X, 'text', Y, C, D]})
+    ).toJS())
       .to.eql([
         {type: 'series', content: [A, B]},
         {type: 'paragraph', content: [X, 'text', Y]},

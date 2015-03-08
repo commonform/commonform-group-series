@@ -43,4 +43,4 @@ module.exports = function(form) {
     }, Immutable.List());
 };
 
-module.exports.version = '0.2.0';
+module.exports.version = '0.3.0';

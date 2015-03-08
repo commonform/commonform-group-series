@@ -1,11 +1,5 @@
 var Immutable = require('immutable');
-
-var hasFormProperty = function(argument) {
-  return (
-    Immutable.Map.isMap(argument) &&
-    argument.has('form')
-  );
-};
+var predicate = require('commonform-predicate');
 
 var pushToLastContent = function(list, element) {
   return list.update(list.count() - 1, function(lastGroup) {
@@ -18,10 +12,10 @@ var pushToLastContent = function(list, element) {
 module.exports = function(form) {
   return form.get('content')
     .reduce(function(listOfGroups, element, index, content) {
-      // `element` is a sub-form.
-      if (hasFormProperty(element)) {
+      // `element` is an inclusion.
+      if (predicate.inclusion(element)) {
         // `element` is part of the previous series.
-        if (index > 0 && hasFormProperty(content.get(index - 1))) {
+        if (index > 0 && predicate.inclusion(content.get(index - 1))) {
           return pushToLastContent(listOfGroups, element);
 
         // `element` starts a new series.
@@ -32,10 +26,10 @@ module.exports = function(form) {
           }));
         }
 
-      // `element` is not a sub-form.
+      // `element` is not an inclusion.
       } else {
         // `element` is part of the previous paragraph.
-        if (index > 0 && !hasFormProperty(content.get(index - 1))) {
+        if (index > 0 && !predicate.inclusion(content.get(index - 1))) {
           return pushToLastContent(listOfGroups, element);
 
         // `element` starts a new paragraph.

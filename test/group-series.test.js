@@ -1,19 +1,24 @@
 /* jshint mocha: true */
 var Immutable = require('immutable');
 var expect = require('chai').expect;
+var validate = require('commonform-validate');
 var group = require('..');
 
-var simpleSubForm = function(content) {
-  return {form: {content: [content]}};
+var simpleInclusion = function(content) {
+  return {inclusion: {content: [content]}};
 };
 
-var A = simpleSubForm('A');
-var B = simpleSubForm('B');
-var C = simpleSubForm('C');
-var D = simpleSubForm('D');
+var A = simpleInclusion('A');
+var B = simpleInclusion('B');
+var C = simpleInclusion('C');
+var D = simpleInclusion('D');
 
 var X = {use: 'X'};
 var Y = {definition: 'Y'};
+
+var form = Immutable.fromJS({
+  content: [A, B, X, 'text', Y, C, D]
+});
 
 describe('group series', function() {
   it('is a function', function() {
@@ -21,10 +26,12 @@ describe('group series', function() {
       .to.be.a('function');
   });
 
+  it('handles valid objects', function() {
+    expect(validate.nestedForm(form)).to.equal(true);
+  });
+
   it('works on Immutables', function() {
-    expect(group(Immutable.fromJS({
-      content: [A, B, X, 'text', Y, C, D]})
-    ).toJS())
+    expect(group(form).toJS())
       .to.eql([
         {type: 'series', content: [A, B]},
         {type: 'paragraph', content: [X, 'text', Y]},

@@ -1,46 +1,40 @@
-var Immutable = require('immutable');
+var clone = require('clone');
 var predicate = require('commonform-predicate');
 
-var pushToLastContent = function(list, element) {
-  return list.update(list.count() - 1, function(lastGroup) {
-    return lastGroup.update('content', function(content) {
-      return content.push(element);
-    });
-  });
+var isChild = predicate.child.bind(predicate);
+
+var group = function(form) {
+  return form.content
+    .reduce(function(groups, element, index, content) {
+      if (isChild(element)) {
+        // `element` is part of the previous series.
+        if (index > 0 && isChild(content[index - 1])) {
+          groups[groups.length - 1].content.push(element);
+        // `element` starts a new series.
+        } else {
+          groups.push({
+            type: 'series',
+            content: [element]
+          });
+        }
+      } else {
+        // `element` is part of the previous paragraph.
+        if (index > 0 && !isChild(content[index - 1])) {
+          groups[groups.length - 1].content.push(element);
+        // `element` starts a new paragraph.
+        } else {
+          groups.push({
+            type: 'paragraph',
+            content: [element]
+          });
+        }
+      }
+      return groups;
+    }, []);
 };
 
 module.exports = function(form) {
-  return form.get('content')
-    .reduce(function(listOfGroups, element, index, content) {
-      // `element` is an inclusion.
-      if (predicate.inclusion(element)) {
-        // `element` is part of the previous series.
-        if (index > 0 && predicate.inclusion(content.get(index - 1))) {
-          return pushToLastContent(listOfGroups, element);
-
-        // `element` starts a new series.
-        } else {
-          return listOfGroups.push(Immutable.Map({
-            type: 'series',
-            content: Immutable.List([element])
-          }));
-        }
-
-      // `element` is not an inclusion.
-      } else {
-        // `element` is part of the previous paragraph.
-        if (index > 0 && !predicate.inclusion(content.get(index - 1))) {
-          return pushToLastContent(listOfGroups, element);
-
-        // `element` starts a new paragraph.
-        } else {
-          return listOfGroups.push(Immutable.Map({
-            type: 'paragraph',
-            content: Immutable.List([element])
-          }));
-        }
-      }
-    }, Immutable.List());
+  return group(clone(form));
 };
 
-module.exports.version = '0.3.0';
+module.exports.version = '1.0.0-rc1';

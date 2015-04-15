@@ -22,7 +22,7 @@ describe('group series', function() {
     expect(validate.form(form)).to.equal(true);
   });
 
-  it('works on Immutables', function() {
+  it('handles nested objects', function() {
     expect(
       group(form)
     ).to.eql([

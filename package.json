@@ -2,25 +2,22 @@
   "name": "commonform-group-series",
   "description": "group series within Common Form form content",
   "version": "1.0.0-rc1",
-  "author": {
-    "name": "Kyle E. Mitchell",
-    "email": "kyle@kemitchell.com",
-    "url": "http://kemitchell.com/"
-  },
+  "author": "Kyle E. Mitchell <kyle@kemitchell.com> (http://kemitchell.com)",
+  "bugs": "https://github.com/commonform/commonform-group-series/issues",
   "dependencies": {
     "clone": "^1.0.2",
-    "commonform-predicate": "1.x"
+    "commonform-predicate": "^0.4.0"
   },
   "devDependencies": {
-    "chai": "^1.10.0",
-    "check-versions": "1.x",
-    "commonform-validate": "1.x",
+    "chai": "^2.2.0",
+    "check-versions": "^1.0.0",
+    "commonform-validate": "^0.4.0",
     "istanbul": "^0.3.5",
     "jscs": "^1.8.1",
     "jshint": "^2.5.10",
     "mocha": "^2.0.1"
   },
-  "homepage": "https://github.com/commonform/commonform-group-series",
+  "homepage": "https://commonform.github.io",
   "keywords": [
     "contracts",
     "document assembly",
@@ -29,15 +26,12 @@
     "markup"
   ],
   "license": "Apache-2.0",
-  "main": "source/index",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/commonform/commonform-group-series.git"
-  },
+  "main": "commonform-group-series.js",
+  "repository": "commonform/commonform-group-series",
   "scripts": {
     "check": "check-versions --check-module",
     "coverage": "istanbul cover _mocha && istanbul check-coverage coverage/coverage.json",
-    "lint": "jshint source test && jscs source test",
+    "lint": "jshint commonform-group-series.js test && jscs commonform-group-series.js test",
     "pre-commit": "npm run lint && npm run check && npm run coverage",
     "test": "mocha",
     "travis-ci": "npm run pre-commit"

@@ -1,7 +1,7 @@
 {
   "name": "commonform-group-series",
   "description": "group series within Common Forms",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "author": "Kyle E. Mitchell <kyle@kemitchell.com> (http://kemitchell.com)",
   "bugs": "https://github.com/commonform/commonform-group-series/issues",
   "dependencies": {

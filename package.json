@@ -5,19 +5,12 @@
   "author": "Kyle E. Mitchell <kyle@kemitchell.com> (http://kemitchell.com)",
   "bugs": "https://github.com/commonform/commonform-group-series/issues",
   "dependencies": {
-    "clone": "^1.0.2",
     "commonform-predicate": "^0.4.0"
   },
   "devDependencies": {
-    "chai": "^2.2.0",
-    "check-versions": "^1.0.0",
-    "commonform-validate": "^0.4.0",
-    "istanbul": "^0.3.5",
-    "jscs": "^1.8.1",
-    "jshint": "^2.5.10",
-    "mocha": "^2.0.1"
+    "defence-cli": "^1.0.1",
+    "replace-require-self": "^1.0.0"
   },
-  "homepage": "https://commonform.github.io",
   "keywords": [
     "contracts",
     "document assembly",
@@ -26,17 +19,11 @@
     "markup"
   ],
   "license": "Apache-2.0",
-  "main": "source/index",
   "peerDependencies": {
     "commonform": "1.x"
   },
   "repository": "commonform/commonform-group-series",
   "scripts": {
-    "check": "check-versions --check-module",
-    "coverage": "istanbul check-coverage --config .dotfiles/istanbul.yml coverage/coverage.json",
-    "lint": "jshint --config .dotfiles/jshint.json source test && jscs --config .dotfiles/jscs.json source test",
-    "precommit": "npm run check && npm run lint && npm run coverage",
-    "precoverage": "istanbul cover --config .dotfiles/istanbul.yml -- _mocha --opts .dotfiles/mocha.opts",
-    "test": "mocha --opts .dotfiles/mocha.opts"
+    "test": "defence README.md | replace-require-self | node"
   }
 }

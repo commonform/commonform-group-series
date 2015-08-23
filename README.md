@@ -1,7 +1,23 @@
-commonform-group-series
-=======================
+```javascript
+var group = require('commonform-group-series')
+var assert = require('assert')
 
-[![NPM version](https://img.shields.io/npm/v/commonform-group-series.svg)](https://www.npmjs.com/package/commonform-group-series)
-[![build status](https://img.shields.io/travis/commonform/commonform-group-series.svg)](http://travis-ci.org/commonform/commonform-group-series)
+var A = { form: { content: [ 'A' ] } }
+var B = { form: { content: [ 'B' ] } }
+var C = { form: { content: [ 'C' ] } }
+var D = { form: { content: [ 'D' ] } }
 
-Group series within Common Forms.
+var X = { use: 'X' }
+var Y = { definition: 'Y' }
+
+var form = { content: [ A, B, X, 'text', Y, C, D ] }
+
+assert.deepEqual(
+  group(form),
+  [ { type: 'series',
+      content: [ A, B ] },
+    { type: 'paragraph',
+      content: [ X, 'text', Y ] },
+    { type: 'series',
+      content: [ C, D ] } ])
+```

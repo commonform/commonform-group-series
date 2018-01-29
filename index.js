@@ -1,7 +1,5 @@
 var predicate = require('commonform-predicate')
 
-var isChild = predicate.child.bind(predicate)
-
 module.exports = function commonformGroupSeries (form) {
   return form.content
   .reduce(function (groups, element, index, content) {
@@ -30,4 +28,8 @@ module.exports = function commonformGroupSeries (form) {
     }
     return groups
   }, [])
+}
+
+function isChild (argument) {
+  return predicate.child(argument) || predicate.component(argument)
 }

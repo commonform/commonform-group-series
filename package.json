@@ -1,7 +1,7 @@
 {
   "name": "commonform-group-series",
   "description": "group paragraphs and series of children within Common Forms",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "Kyle E. Mitchell <kyle@kemitchell.com> (http://kemitchell.com)",
   "files": [
     "index.js"

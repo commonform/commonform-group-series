@@ -3,7 +3,6 @@
   "description": "group paragraphs and series of children within Common Forms",
   "version": "1.0.0",
   "author": "Kyle E. Mitchell <kyle@kemitchell.com> (http://kemitchell.com)",
-  "bugs": "https://github.com/commonform/commonform-group-series/issues",
   "dependencies": {
     "commonform-predicate": "^3.0.0"
   },

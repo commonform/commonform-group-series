@@ -1,3 +1,7 @@
+# commonform-group-series
+
+group paragraphs and series o2.0f children within Common Forms
+
 ```javascript
 var group = require('commonform-group-series')
 var assert = require('assert')

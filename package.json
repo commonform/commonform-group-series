@@ -5,7 +5,7 @@
   "author": "Kyle E. Mitchell <kyle@kemitchell.com> (http://kemitchell.com)",
   "bugs": "https://github.com/commonform/commonform-group-series/issues",
   "dependencies": {
-    "commonform-predicate": "^2.0.0"
+    "commonform-predicate": "^3.0.0"
   },
   "devDependencies": {
     "defence-cli": "^3.0.1",

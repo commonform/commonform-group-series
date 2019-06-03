@@ -4,10 +4,10 @@ module.exports = function commonformGroupSeries (form) {
   return form.content
     .reduce(function (groups, element, index, content) {
       if (isChild(element)) {
-      // `element` is part of the previous series.
+        // `element` is part of the previous series.
         if (index > 0 && isChild(content[index - 1])) {
           groups[groups.length - 1].content.push(element)
-          // `element` starts a new series.
+        // `element` starts a new series.
         } else {
           groups.push({
             type: 'series',
@@ -15,10 +15,10 @@ module.exports = function commonformGroupSeries (form) {
           })
         }
       } else {
-      // `element` is part of the previous paragraph.
+        // `element` is part of the previous paragraph.
         if (index > 0 && !isChild(content[index - 1])) {
           groups[groups.length - 1].content.push(element)
-          // `element` starts a new paragraph.
+        // `element` starts a new paragraph.
         } else {
           groups.push({
             type: 'paragraph',

@@ -12,7 +12,7 @@ var C = {
   repository: 'api.commonform.org',
   publisher: 'test',
   project: 'test',
-  edition: '1e',
+  version: '1.0.0',
   substitutions: { terms: {}, headings: {} }
 }
 var D = { form: { content: [ 'D' ] } }

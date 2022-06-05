@@ -1,6 +1,6 @@
 # commonform-group-series
 
-group paragraphs and series o2.0f children within Common Forms
+group paragraphs and series of children within Common Forms
 
 ```javascript
 var group = require('commonform-group-series')

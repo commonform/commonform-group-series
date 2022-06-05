@@ -9,9 +9,7 @@ var assert = require('assert')
 var A = { form: { content: [ 'A' ] } }
 var B = { form: { content: [ 'B' ] } }
 var C = {
-  repository: 'api.commonform.org',
-  publisher: 'test',
-  project: 'test',
+  component: 'https://example.com/component',
   version: '1.0.0',
   substitutions: { terms: {}, headings: {} }
 }

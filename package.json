@@ -7,7 +7,7 @@
     "index.js"
   ],
   "dependencies": {
-    "commonform-predicate": "^3.0.0"
+    "commonform-predicate": "^4.0.0"
   },
   "devDependencies": {
     "defence-cli": "^3.0.1",

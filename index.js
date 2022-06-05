@@ -31,5 +31,5 @@ module.exports = function commonformGroupSeries (form) {
 }
 
 function isChild (argument) {
-  return predicate.child(argument) || predicate.component(argument)
+  return predicate.child(argument) || predicate.snippet(argument)
 }

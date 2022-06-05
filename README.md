@@ -8,13 +8,7 @@ var assert = require('assert')
 
 var A = { form: { content: [ 'A' ] } }
 var B = { form: { content: [ 'B' ] } }
-var C = {
-  repository: 'api.commonform.org',
-  publisher: 'test',
-  project: 'test',
-  edition: '1e',
-  substitutions: { terms: {}, headings: {} }
-}
+var C = { snippet: 'https://commonform.org/test/test/1e' }
 var D = { form: { content: [ 'D' ] } }
 
 var X = { use: 'X' }
